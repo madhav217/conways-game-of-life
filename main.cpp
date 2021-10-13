@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
     renderwindow window("game", SCREEN_WIDTH, SCREEN_HEIGHT);
 
     //loading textures
-    SDL_Texture* organism = window.LoadTextureMe("assets\\organism.png");
+    SDL_Texture* organism = window.LoadTextureMe("..\\assets\\organism.png");
 	
 	//defines starting state
 	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}};

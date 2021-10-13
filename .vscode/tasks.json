@@ -9,7 +9,7 @@
 				"-g",
 				"*.cpp",
 				"-o",
-				"conway.exe",
+				"${workspaceFolder}\\bin\\conway.exe",
 				"-I","${workspaceFolder}\\SDL\\include",
 				"-L","${workspaceFolder}\\SDL\\lib",
 				"-lmingw32",
