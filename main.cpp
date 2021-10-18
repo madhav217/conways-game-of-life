@@ -9,15 +9,13 @@
 #include <chrono>
 #include <thread>
 
-std::vector<std::pair<int,int>> randomSetup(int n);
+std::vector<std::pair<int,int>> randomSetup(int n);//defined at the bottom
 
 const int arrlen1 = (int) 1024/32;
 const int arrlen2 = (int) 512/32;
 
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 512;
-
-std::pair <int,int> origin = {3,4};
 
 int main(int argc, char *argv[]){
 	
@@ -36,16 +34,15 @@ int main(int argc, char *argv[]){
     SDL_Texture* organism = window.LoadTextureMe("..\\assets\\organism.png");
 	
 	//defines starting state
-	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}};
 
+	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}}; used this to test before implementing random startup
 	std::vector <std::pair <int,int>> setup = randomSetup(arrlen1*arrlen2*0.5);
 
-	//initialising game map
+	//initialising game map using the setup vector
 	Entity maparr[arrlen1][arrlen2];
 	for (int i = 0; i < arrlen1; i++){
 			for (int j = 0; j < arrlen2; j++){
-        		maparr[i][j] = Entity(i*32,j*32,organism,false);//this is for only on and off of only one entity.	
-				//maparr[i][j] = Entity(); this is for non binary entities
+        		maparr[i][j] = Entity(i*32, j*32, organism,false);//this is for only on and off of only one entity.	
 				for (int k = 0; k < setup.size(); k++){
 					if (i == setup[k].first && j == setup[k].second){
 						maparr[i][j].exist = 1;
@@ -67,7 +64,6 @@ int main(int argc, char *argv[]){
 		SDL_PollEvent(&event);
 		if(event.type == SDL_KEYDOWN){
 			if (event.key.keysym.sym == SDLK_c){
-				//activeEntities.push_back(Entity(origin.first+activeEntities.size()*32,origin.second+activeEntities.size()*32,organism));
 				while (event.key.keysym.sym == SDLK_c){
 					SDL_PollEvent(&temp);
 					if (temp.type == SDL_KEYUP && temp.key.keysym.sym == SDLK_c){
@@ -90,7 +86,7 @@ int main(int argc, char *argv[]){
         window.renderclear();
 		for (int i = 0; i < arrlen1; i++){
 			for (int j = 0; j < arrlen2; j++){
-				//neighbour check
+				//neighbour check (checks the spaces in the array around (x,y))
 				maparr[i][j].neighbourcount = 0;
   				for(int x = i-1; x < i+2; x++){
      				for(int y = j-1; y < j+2; y++){
@@ -99,6 +95,7 @@ int main(int argc, char *argv[]){
            				}
         			}
    				 }
+				//makes sure the element itself isn't part of the neighbourcount
     			maparr[i][j].neighbourcount = maparr[i][j].neighbourcount - (int) maparr[i][j].exist;
 
 
@@ -119,8 +116,9 @@ int main(int argc, char *argv[]){
 
 		//per frame stuff
         window.renderdisplay();
+
+		//slows down the framerate to make it look nicer
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		//printf("%i",status);
 	}
 
     window.cleanup();
@@ -129,10 +127,11 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
+//randomises the starting system state
 std::vector<std::pair<int,int>> randomSetup(int n){
 	std::vector<std::pair<int,int>> result;
 	for (int i = 0; i < n; i++){
-		std::pair <int,int> temp = {rand()%arrlen1,rand()%arrlen2};
+		std::pair <int,int> temp = {rand() % arrlen1 , rand() % arrlen2};
 		result.push_back(temp);
 	}
 	return result;
