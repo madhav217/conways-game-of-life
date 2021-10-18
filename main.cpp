@@ -11,11 +11,11 @@
 
 std::vector<std::pair<int,int>> randomSetup(int n);//defined at the bottom
 
-const int arrlen1 = (int) 1024/32;
-const int arrlen2 = (int) 512/32;
+const int arrlen1 = (int) 32;
+const int arrlen2 = (int) 32;
 
-const int SCREEN_WIDTH = 1024;
-const int SCREEN_HEIGHT = 512;
+const int SCREEN_WIDTH = arrlen1*32;
+const int SCREEN_HEIGHT = arrlen2*32;
 
 int main(int argc, char *argv[]){
 

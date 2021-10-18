@@ -4,7 +4,6 @@
 renderwindow::renderwindow(const char* p_title, int p_w, int p_h):window(NULL), renderer(NULL)
 {
     window = SDL_CreateWindow( p_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, p_w, p_h, SDL_WINDOW_SHOWN );
-	
 
     	if (!window){
 		printf("window could not be created");
@@ -14,9 +13,7 @@ renderwindow::renderwindow(const char* p_title, int p_w, int p_h):window(NULL), 
 
 void renderwindow::renderclear(){
     //these two are combined but should they not be?
-    SDL_RenderClear(renderer);
-
-	
+    SDL_RenderClear(renderer);	
 }
 
 void renderwindow::renderdisplay(){
