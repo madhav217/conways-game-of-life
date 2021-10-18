@@ -18,7 +18,6 @@ const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 512;
 
 int main(int argc, char *argv[]){
-	
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		printf("SDL couldn't initialise. ERROR: %s\n", SDL_GetError());
@@ -31,7 +30,7 @@ int main(int argc, char *argv[]){
     renderwindow window("game", SCREEN_WIDTH, SCREEN_HEIGHT);
 
     //loading textures
-    SDL_Texture* organism = window.LoadTextureMe("..\\assets\\organism.png");
+    SDL_Texture* organism = window.LoadTextureMe("..\\assets\\organism.png");//the asset doesn't load unless you run the binary from with the bin file open. Running bin\conway.exe command in the terminal gives asset could not be loaded error.
 	
 	//defines starting state
 
