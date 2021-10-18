@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-Entity::Entity(float p_x, float p_y, SDL_Texture*p_txt, bool status){
+Entity::Entity(float p_x, float p_y, SDL_Texture*p_txt, bool status, int entitySize){
     exist = status;
     x = p_x;
     y = p_y;
@@ -8,8 +8,8 @@ Entity::Entity(float p_x, float p_y, SDL_Texture*p_txt, bool status){
 
     currentFrame.x = 0;
     currentFrame.y = 0;
-    currentFrame.w = 32;
-    currentFrame.h = 32;
+    currentFrame.w = entitySize;
+    currentFrame.h = entitySize;
 }
 
 //void Entity::toggleexist(){

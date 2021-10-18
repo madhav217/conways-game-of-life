@@ -10,12 +10,17 @@
 #include <thread>
 
 std::vector<std::pair<int,int>> randomSetup(int n);//defined at the bottom
+const int SCREEN_WIDTH = 1024;
+const int SCREEN_HEIGHT = 512;
 
-const int arrlen1 = (int) 32;
-const int arrlen2 = (int) 32;
+const int ENTITYSIZE = 8;
 
-const int SCREEN_WIDTH = arrlen1*32;
-const int SCREEN_HEIGHT = arrlen2*32;
+const int ARRAYWIDTH = SCREEN_WIDTH/ENTITYSIZE;
+const int ARRAYHEIGHT = SCREEN_HEIGHT/ENTITYSIZE;
+
+
+
+
 
 int main(int argc, char *argv[]){
 
@@ -35,13 +40,13 @@ int main(int argc, char *argv[]){
 	//defines starting state
 
 	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}}; used this to test before implementing random startup
-	std::vector <std::pair <int,int>> setup = randomSetup(arrlen1*arrlen2*0.5);
+	std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT*0.5);//this means half of the board will have cells in them
 
 	//initialising game map using the setup vector
-	Entity maparr[arrlen1][arrlen2];
-	for (int i = 0; i < arrlen1; i++){
-			for (int j = 0; j < arrlen2; j++){
-        		maparr[i][j] = Entity(i*32, j*32, organism,false);//this is for only on and off of only one entity.	
+	Entity maparr[ARRAYWIDTH][ARRAYHEIGHT];
+	for (int i = 0; i < ARRAYWIDTH; i++){
+			for (int j = 0; j < ARRAYHEIGHT; j++){
+        		maparr[i][j] = Entity(i*ENTITYSIZE, j*ENTITYSIZE, organism, false, ENTITYSIZE);//this is for only on and off of only one entity.	
 				for (int k = 0; k < setup.size(); k++){
 					if (i == setup[k].first && j == setup[k].second){
 						maparr[i][j].exist = 1;
@@ -83,13 +88,13 @@ int main(int argc, char *argv[]){
 			break;
 		}
         window.renderclear();
-		for (int i = 0; i < arrlen1; i++){
-			for (int j = 0; j < arrlen2; j++){
+		for (int i = 0; i < ARRAYWIDTH; i++){
+			for (int j = 0; j < ARRAYHEIGHT; j++){
 				//neighbour check (checks the spaces in the array around (x,y))
 				maparr[i][j].neighbourcount = 0;
   				for(int x = i-1; x < i+2; x++){
      				for(int y = j-1; y < j+2; y++){
-		        		if(x>=0 && y>=0 && x<arrlen1 && y<arrlen2){
+		        		if(x>=0 && y>=0 && x<ARRAYWIDTH && y<ARRAYHEIGHT){
                 			if(maparr[x][y].exist){maparr[i][j].neighbourcount++;}
            				}
         			}
@@ -107,8 +112,8 @@ int main(int argc, char *argv[]){
 		}
 		
 		//update with game logic
-		for (int i = 0; i < arrlen1; i++){
-			for (int j = 0; j < arrlen2; j++){
+		for (int i = 0; i < ARRAYWIDTH; i++){
+			for (int j = 0; j < ARRAYHEIGHT; j++){
 				maparr[i][j].update();
 			}
 		}
@@ -130,8 +135,12 @@ int main(int argc, char *argv[]){
 std::vector<std::pair<int,int>> randomSetup(int n){
 	std::vector<std::pair<int,int>> result;
 	for (int i = 0; i < n; i++){
-		std::pair <int,int> temp = {rand() % arrlen1 , rand() % arrlen2};
+		std::pair <int,int> temp = {rand() % ARRAYWIDTH , rand() % ARRAYHEIGHT};
 		result.push_back(temp);
 	}
 	return result;
 }
+
+
+//while watching it work, I thought to myself. What is beyond the screen. In code, the answer is simple, unaccesable memory. So a place where neighbourb count says its zero, and cannot be updated to not be zero. 
+//But philosophically, it is the void that cannot sustain this game of life.

@@ -8,7 +8,7 @@ class Entity{
 public:
     
     Entity(){exist = false;}
-    Entity(float p_x, float p_y, SDL_Texture*p_txt,bool status);
+    Entity(float p_x, float p_y, SDL_Texture*p_txt,bool status, int entitySize);
 
     void update();
 
