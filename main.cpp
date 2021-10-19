@@ -18,10 +18,6 @@ const int ENTITYSIZE = 8;
 const int ARRAYWIDTH = SCREEN_WIDTH/ENTITYSIZE;
 const int ARRAYHEIGHT = SCREEN_HEIGHT/ENTITYSIZE;
 
-
-
-
-
 int main(int argc, char *argv[]){
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) != 0){
@@ -50,17 +46,15 @@ int main(int argc, char *argv[]){
 				for (int k = 0; k < setup.size(); k++){
 					if (i == setup[k].first && j == setup[k].second){
 						maparr[i][j].exist = 1;
-					}
-				}
+				}	
 			}
 		}
-
+	}
 	//variables for game loop
     bool running = true;
 	SDL_Event event;
 	//pause event
 	SDL_Event temp;
-	int i1,j1 = 0;
 	//game loop
 	while(running){
 		int status = 0;
