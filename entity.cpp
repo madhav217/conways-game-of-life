@@ -12,10 +12,8 @@ Entity::Entity(float p_x, float p_y, SDL_Texture*p_txt, bool status, int entityS
     currentFrame.h = entitySize;
 }
 
-//void Entity::toggleexist(){
-//    exist = (exist+1)%2;
-//}
 void Entity::update(){
+    //game rules
     int temp = neighbourcount;
     if(temp < 2){exist=0;} //underpopulation
 	else if(temp == 3){exist=1;} //reproductions

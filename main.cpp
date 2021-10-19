@@ -36,19 +36,17 @@ int main(int argc, char *argv[]){
 	//defines starting state
 
 	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}}; used this to test before implementing random startup
-	//std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT*0.5);//this means half of the board will have cells in them
 	std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT % rand());//this means half of the board will have cells in them
-
 
 	//initialising game map using the setup vector
 	Entity maparr[ARRAYWIDTH][ARRAYHEIGHT];
 	for (int i = 0; i < ARRAYWIDTH; i++){
-			for (int j = 0; j < ARRAYHEIGHT; j++){
-        		maparr[i][j] = Entity(i*ENTITYSIZE, j*ENTITYSIZE, organism, false, ENTITYSIZE);//this is for only on and off of only one entity.	
-				for (int k = 0; k < setup.size(); k++){
-					if (i == setup[k].first && j == setup[k].second){
-						maparr[i][j].exist = 1;
-				}	
+		for (int j = 0; j < ARRAYHEIGHT; j++){
+        	maparr[i][j] = Entity(i*ENTITYSIZE, j*ENTITYSIZE, organism, false, ENTITYSIZE);//this is for only on and off of only one entity.	
+			for (int k = 0; k < setup.size(); k++){
+				if (i == setup[k].first && j == setup[k].second){
+					maparr[i][j].exist = 1;
+				}		
 			}
 		}
 	}
@@ -91,7 +89,9 @@ int main(int argc, char *argv[]){
   				for(int x = i-1; x < i+2; x++){
      				for(int y = j-1; y < j+2; y++){
 		        		if(x>=0 && y>=0 && x<ARRAYWIDTH && y<ARRAYHEIGHT){
-                			if(maparr[x][y].exist){maparr[i][j].neighbourcount++;}
+                			if(maparr[x][y].exist){
+								maparr[i][j].neighbourcount++;
+							}
            				}
         			}
    				 }
