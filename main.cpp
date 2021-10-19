@@ -36,7 +36,9 @@ int main(int argc, char *argv[]){
 	//defines starting state
 
 	//std::vector <std::pair <int,int>> setup = {{3,3},{4,3},{5,4},{4,4}}; used this to test before implementing random startup
-	std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT*0.5);//this means half of the board will have cells in them
+	//std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT*0.5);//this means half of the board will have cells in them
+	std::vector <std::pair <int,int>> setup = randomSetup(ARRAYWIDTH*ARRAYHEIGHT % rand());//this means half of the board will have cells in them
+
 
 	//initialising game map using the setup vector
 	Entity maparr[ARRAYWIDTH][ARRAYHEIGHT];
